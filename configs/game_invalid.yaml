@@ -1,0 +1,17 @@
+game:
+  name: "WordMon Go"
+  version: "0.6.0"
+rarityWeights:
+  Common: 70
+  Rare: 25
+  Legendary: 10 # Somme = 105 (invalide)
+xpRewards:
+  Common: 5
+  Rare: 20
+  Legendary: 100
+spawner:
+  intervalSeconds: 10
+  autoFleeAfterSeconds: 5
+level:
+  base: 1
+  xpPerLevel: 100

@@ -1,0 +1,12 @@
+anagram:
+  minLenByRarity:
+  Common: 3
+  Rare: 5
+  Legendary: 7
+  mustDifferFromSource: true
+aTrou:
+  revealedLetters:
+  Common: 2
+  Rare: 1
+  Legendary: 0
+  maxAttempts: 4

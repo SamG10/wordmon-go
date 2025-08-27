@@ -1,0 +1,17 @@
+[
+  { "id": "c_1", "text": "chat", "rarity": "Common" },
+  { "id": "c_2", "text": "lune", "rarity": "Common" },
+  { "id": "c_3", "text": "code", "rarity": "Common" },
+  { "id": "c_4", "text": "pomme", "rarity": "Common" },
+  { "id": "c_5", "text": "livre", "rarity": "Common" },
+  { "id": "r_1", "text": "dragon", "rarity": "Rare" },
+  { "id": "r_2", "text": "phare", "rarity": "Rare" },
+  { "id": "r_3", "text": "rival", "rarity": "Rare" },
+  { "id": "r_4", "text": "magma", "rarity": "Rare" },
+  { "id": "r_5", "text": "fable", "rarity": "Rare" },
+  { "id": "l_1", "text": "phoenix", "rarity": "Legendary" },
+  { "id": "l_2", "text": "chimere", "rarity": "Legendary" },
+  { "id": "l_3", "text": "oracle", "rarity": "Legendary" },
+  { "id": "l_4", "text": "galion", "rarity": "Legendary" },
+  { "id": "l_5", "text": "sphinx", "rarity": "Legendary" }
+]

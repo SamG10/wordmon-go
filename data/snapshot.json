@@ -1,0 +1,12 @@
+{
+  "updatedAt": "2025-08-27T08:40:24Z",
+  "players": [
+    {
+      "id": "player_001",
+      "name": "Guest",
+      "xp": 0,
+      "level": 1,
+      "inventory": {}
+    }
+  ]
+}
