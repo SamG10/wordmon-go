@@ -22,7 +22,7 @@ func main() {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("PANIC intercepté: %v\n", r)
-			fmt.Println("Le jeu va se fermer proprement...")
+			fmt.Println("Le jeu va se fermer proprement...P")
 			os.Exit(1)
 		}
 	}()
@@ -33,13 +33,16 @@ func main() {
 	// Exercice 01: Définir les flags CLI
 	showVersion := flag.Bool("version", false, "Affiche la version")
 	showVersionShort := flag.Bool("v", false, "Affiche la version")
+
 	playerName := flag.String("player", "", "Nom du joueur")
 	playerNameShort := flag.String("p", "", "Nom du joueur")
+
 	testMode := flag.Bool("test", false, "Mode test automatique")
 	interactiveMode := flag.Bool("interactive", false, "Mode interactif (exercices 01-04)")
 	interactiveModeShort := flag.Bool("i", false, "Mode interactif (exercices 01-04)")
 	concurrentMode := flag.Bool("concurrent", false, "Mode concurrent avec spawner (exercice 05)")
 	concurrentModeShort := flag.Bool("c", false, "Mode concurrent avec spawner (exercice 05)")
+
 	duration := flag.Int("duration", 30, "Durée de la démo en secondes (mode concurrent)")
 	
 	// Parser les arguments de la ligne de commande
@@ -52,8 +55,7 @@ func main() {
 	}
 	
 	// Afficher le message d'accueil
-	fmt.Printf("WordMon Go version %s - Edition Complète\n", Version)
-	fmt.Println("Exercices 01-05 intégrés : CLI, Types, OOP, Erreurs, Concurrence")
+	fmt.Printf("WordMon Go version %s \n", Version)
 	
 	// Récupérer le nom du joueur ou utiliser "Guest"
 	player := *playerName

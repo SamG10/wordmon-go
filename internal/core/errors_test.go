@@ -8,7 +8,6 @@ import (
 // TestInvalidStateTransitions teste les transitions d'état invalides
 func TestInvalidStateTransitions(t *testing.T) {
 	encounter := NewEncounter()
-	player := NewPlayer("test", "TestPlayer")
 
 	// Test 1: BeginBattle sans Start
 	err := encounter.BeginBattle()
