@@ -33,7 +33,7 @@ func NewGORMStore(databaseURL string) (*GORMStore, error) {
 	if err != nil {
 		return nil, fmt.Errorf("erreur récupération DB: %w", err)
 	}
-	
+
 	if err := sqlDB.Ping(); err != nil {
 		return nil, fmt.Errorf("erreur ping DB: %w", err)
 	}
@@ -85,7 +85,7 @@ func (s *GORMStore) Create(name string) (*core.Player, error) {
 // Get récupère un joueur par ID
 func (s *GORMStore) Get(id string) (*core.Player, error) {
 	var player models.Player
-	
+
 	if err := s.db.First(&player, "id = ?", id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, fmt.Errorf("joueur introuvable: %s", id)
@@ -104,12 +104,12 @@ func (s *GORMStore) Get(id string) (*core.Player, error) {
 // List récupère une liste de joueurs
 func (s *GORMStore) List(limit int) ([]core.Player, error) {
 	var players []models.Player
-	
+
 	query := s.db.Order("xp DESC")
 	if limit > 0 {
 		query = query.Limit(limit)
 	}
-	
+
 	if err := query.Find(&players).Error; err != nil {
 		return nil, fmt.Errorf("erreur liste joueurs: %w", err)
 	}
@@ -152,7 +152,7 @@ func (s *GORMStore) Seed(words []core.Word) error {
 	// Vérifier si des mots existent déjà
 	var count int64
 	s.db.Model(&models.Word{}).Count(&count)
-	
+
 	if count > 0 {
 		log.Printf("[seed] %d words already in DB, skipping seed", count)
 		return nil
@@ -181,7 +181,7 @@ func (s *GORMStore) Seed(words []core.Word) error {
 // Get récupère un mot par ID
 func (s *GORMStore) GetWord(id string) (*core.Word, error) {
 	var word models.Word
-	
+
 	if err := s.db.First(&word, "id = ?", id).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, fmt.Errorf("mot introuvable: %s", id)
@@ -200,7 +200,7 @@ func (s *GORMStore) GetWord(id string) (*core.Word, error) {
 // RandomByRarity récupère un mot aléatoire selon la rareté
 func (s *GORMStore) RandomByRarity(rarity string) (*core.Word, error) {
 	var word models.Word
-	
+
 	if err := s.db.Where("rarity = ?", rarity).Order("RANDOM()").First(&word).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return nil, fmt.Errorf("aucun mot trouvé pour rareté: %s", rarity)
@@ -262,7 +262,7 @@ func (s *GORMStore) Add(playerId, wordId string) error {
 // ListByPlayer récupère les captures d'un joueur
 func (s *GORMStore) ListByPlayer(playerId string) ([]core.Word, error) {
 	var captures []models.Capture
-	
+
 	if err := s.db.Preload("Word").Where("player_id = ?", playerId).Find(&captures).Error; err != nil {
 		return nil, fmt.Errorf("erreur récupération captures: %w", err)
 	}

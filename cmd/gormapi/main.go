@@ -16,7 +16,7 @@ func main() {
 
 	// Configuration
 	log.Println("=== Chargement des configurations ===")
-	
+
 	gameConfig, err := config.LoadGameConfig("configs/game.yaml")
 	if err != nil {
 		log.Fatalf("Erreur chargement game config: %v", err)
@@ -49,7 +49,7 @@ func main() {
 	for i, w := range wordsConfig.Words {
 		rarity := core.Rarity(w.Rarity)
 		points := 0
-		
+
 		// Calcul des points selon la rareté
 		switch rarity {
 		case core.Common:
@@ -59,7 +59,7 @@ func main() {
 		case core.Legendary:
 			points = gameConfig.XPRewards.Legendary
 		}
-		
+
 		coreWords[i] = core.Word{
 			ID:     w.ID,
 			Text:   w.Text,
@@ -67,14 +67,14 @@ func main() {
 			Points: points,
 		}
 	}
-	
+
 	if err := store.Seed(coreWords); err != nil {
 		log.Fatalf("Erreur seed: %v", err)
 	}
 
 	// Serveur API universel
 	server := api.NewUniversalServer(store, gameConfig, challengesConfig)
-	
+
 	log.Println("[server] Démarrage du serveur GORM sur :8080")
 	log.Println("[server] Endpoints disponibles:")
 	log.Println("  GET  /status")
