@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS captures;
+
+DROP TABLE IF EXISTS words;
+
+DROP TABLE IF EXISTS players;
