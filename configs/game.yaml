@@ -11,7 +11,7 @@ xpRewards:
   Legendary: 100
 spawner:
   intervalSeconds: 10
-  autoFleeAfterSeconds: 5
+  autoFleeAfterSeconds: 30
 level:
   base: 1
   xpPerLevel: 100
