@@ -1,8 +1,30 @@
+// Package core contient les types et fonctions principaux du jeu WordMon.
 package core
 
 import (
 	"math/rand"
 )
+
+// WordEntry représente une entrée de mot pour la configuration initiale.
+type WordEntry struct {
+	ID     string
+	Text   string
+	Rarity string
+}
+
+// RarityWeights définit les poids de rareté pour le tirage des WordMon.
+type RarityWeights struct {
+	Common    int
+	Rare      int
+	Legendary int
+}
+
+// XPRewards définit les récompenses d'XP par rareté.
+type XPRewards struct {
+	Common    int
+	Rare      int
+	Legendary int
+}
 
 // Variables globales pour les pools configurables
 var (
@@ -21,7 +43,7 @@ var (
 	}
 )
 
-// ConfigureWords configure les pools de mots et les paramètres depuis la config
+// ConfigureWords configure les pools de mots et les paramètres depuis la config.
 func ConfigureWords(words []WordEntry, weights RarityWeights, rewards XPRewards) {
 	// Réinitialiser les pools
 	poolCommon = make([]Word, 0)
@@ -61,26 +83,7 @@ func ConfigureWords(words []WordEntry, weights RarityWeights, rewards XPRewards)
 	xpRewards.Legendary = rewards.Legendary
 }
 
-// Types pour la configuration (pour éviter les imports circulaires)
-type WordEntry struct {
-	ID     string
-	Text   string
-	Rarity string
-}
-
-type RarityWeights struct {
-	Common    int
-	Rare      int
-	Legendary int
-}
-
-type XPRewards struct {
-	Common    int
-	Rare      int
-	Legendary int
-}
-
-// parseRarity convertit une string en enum Rarity
+// parseRarity convertit une string en enum Rarity.
 func parseRarity(rarity string) Rarity {
 	switch rarity {
 	case "Common":
@@ -94,7 +97,7 @@ func parseRarity(rarity string) Rarity {
 	}
 }
 
-// SpawnWord retourne un mot aléatoire en respectant les pondérations configurées
+// SpawnWord retourne un mot aléatoire en respectant les pondérations configurées.
 func SpawnWord() Word {
 	// Utiliser les pools par défaut si pas configuré
 	if len(poolCommon) == 0 {
@@ -125,7 +128,7 @@ func SpawnWord() Word {
 	}
 }
 
-// initDefaultPools initialise les pools par défaut (rétrocompatibilité)
+// initDefaultPools initialise les pools par défaut (rétrocompatibilité).
 func initDefaultPools() {
 	poolCommon = []Word{
 		{ID: "c001", Text: "chat", Rarity: Common, Points: 5},

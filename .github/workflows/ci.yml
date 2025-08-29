@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
+      - name: Fmt
+        run: go fmt ./... && git diff --exit-code
+      - name: Vet
+        run: go vet ./...
+      - name: Lint
+        run: golint ./...
+      - name: Test
+        run: go test -race -cover ./...

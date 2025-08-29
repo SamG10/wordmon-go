@@ -1,3 +1,4 @@
+// Package core contient les types et fonctions principaux du jeu WordMon.
 package core
 
 import (
@@ -5,7 +6,7 @@ import (
 	"strings"
 )
 
-// Challenge interface pour les défis de combat
+// Challenge définit l'interface pour tous les défis de combat WordMon.
 type Challenge interface {
 	Instructions() string
 	Check(attempt string) (bool, error)
@@ -13,7 +14,7 @@ type Challenge interface {
 	GetMaxAttempts() int
 }
 
-// AnagramChallenge implémentation du défi anagramme
+// AnagramChallenge implémente le défi anagramme pour WordMon.
 type AnagramChallenge struct {
 	TargetWord   string
 	Rarity       Rarity
@@ -21,7 +22,7 @@ type AnagramChallenge struct {
 	CurrentTries int
 }
 
-// NewAnagramChallenge crée un nouveau défi anagramme
+// NewAnagramChallenge crée un nouveau défi anagramme pour un mot donné.
 func NewAnagramChallenge(word Word) *AnagramChallenge {
 	challenge := &AnagramChallenge{
 		TargetWord: word.Text,
@@ -31,15 +32,15 @@ func NewAnagramChallenge(word Word) *AnagramChallenge {
 	return challenge
 }
 
-// Instructions retourne la consigne du défi
+// Instructions retourne la consigne du défi anagramme.
 func (ac *AnagramChallenge) Instructions() string {
 	return "Défi : Donne un anagramme correct du mot '" + ac.TargetWord + "'"
 }
 
-// Check vérifie si la tentative est un anagramme valide
+// Check vérifie si la tentative est un anagramme valide.
 func (ac *AnagramChallenge) Check(attempt string) (bool, error) {
 	ac.CurrentTries++
-	
+
 	// Vérifier que ce n'est pas vide
 	if attempt == "" {
 		return false, InvalidAttemptError{
@@ -47,11 +48,11 @@ func (ac *AnagramChallenge) Check(attempt string) (bool, error) {
 			Reason: "entrée vide",
 		}
 	}
-	
+
 	// Normaliser l'entrée
 	attempt = strings.TrimSpace(strings.ToLower(attempt))
 	target := strings.ToLower(ac.TargetWord)
-	
+
 	// Vérifier que l'entrée contient seulement des lettres
 	for _, r := range attempt {
 		if !((r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z')) {
@@ -61,7 +62,7 @@ func (ac *AnagramChallenge) Check(attempt string) (bool, error) {
 			}
 		}
 	}
-	
+
 	// Vérifier que ce n'est pas le mot original
 	if attempt == target {
 		return false, InvalidAttemptError{
@@ -69,7 +70,7 @@ func (ac *AnagramChallenge) Check(attempt string) (bool, error) {
 			Reason: "doit être différent du mot original",
 		}
 	}
-	
+
 	// Vérifier que c'est un anagramme (même lettres)
 	if !isAnagram(attempt, target) {
 		return false, InvalidAttemptError{
@@ -77,11 +78,11 @@ func (ac *AnagramChallenge) Check(attempt string) (bool, error) {
 			Reason: "pas un anagramme valide",
 		}
 	}
-	
+
 	return true, nil
 }
 
-// DifficultyFor retourne le nombre d'essais selon la rareté
+// DifficultyFor retourne le nombre d'essais selon la rareté du mot.
 func (ac *AnagramChallenge) DifficultyFor(rarity Rarity) int {
 	switch rarity {
 	case Common:
@@ -95,33 +96,33 @@ func (ac *AnagramChallenge) DifficultyFor(rarity Rarity) int {
 	}
 }
 
-// GetMaxAttempts retourne le nombre maximum d'essais
+// GetMaxAttempts retourne le nombre maximum d'essais autorisés.
 func (ac *AnagramChallenge) GetMaxAttempts() int {
 	return ac.MaxAttempts
 }
 
-// GetCurrentTries retourne le nombre d'essais actuels
+// GetCurrentTries retourne le nombre d'essais déjà effectués.
 func (ac *AnagramChallenge) GetCurrentTries() int {
 	return ac.CurrentTries
 }
 
-// HasAttemptsLeft vérifie s'il reste des essais
+// HasAttemptsLeft indique s'il reste des essais disponibles.
 func (ac *AnagramChallenge) HasAttemptsLeft() bool {
 	return ac.CurrentTries < ac.MaxAttempts
 }
 
-// isAnagram vérifie si deux mots sont des anagrammes
+// isAnagram vérifie si deux mots sont des anagrammes.
 func isAnagram(word1, word2 string) bool {
 	if len(word1) != len(word2) {
 		return false
 	}
-	
+
 	// Convertir en slices de runes et trier
 	runes1 := []rune(word1)
 	runes2 := []rune(word2)
-	
+
 	sort.Slice(runes1, func(i, j int) bool { return runes1[i] < runes1[j] })
 	sort.Slice(runes2, func(i, j int) bool { return runes2[i] < runes2[j] })
-	
+
 	return string(runes1) == string(runes2)
 }

@@ -1,16 +1,17 @@
+// Package core contient les types et fonctions principaux du jeu WordMon.
 package core
 
-// Type Rarity comme alias de string
+// Rarity représente la rareté d'un WordMon (common, rare, legendary).
 type Rarity string
 
-// Constantes de rareté avec iota
+// Constantes de rareté pour les WordMon.
 const (
 	Common    Rarity = "common"
 	Rare      Rarity = "rare"
 	Legendary Rarity = "legendary"
 )
 
-// Struct Player
+// Player représente un joueur dans WordMon.
 type Player struct {
 	ID        string
 	Name      string
@@ -19,7 +20,7 @@ type Player struct {
 	Inventory map[string]int // clé = mot, valeur = nb capturés
 }
 
-// Struct Word
+// Word représente un mot/monstre dans WordMon.
 type Word struct {
 	ID     string
 	Text   string
@@ -27,7 +28,7 @@ type Word struct {
 	Points int
 }
 
-// NewPlayer crée un nouveau joueur avec l'inventaire initialisé
+// NewPlayer crée un nouveau joueur avec l'inventaire initialisé.
 func NewPlayer(id, name string) Player {
 	return Player{
 		ID:        id,

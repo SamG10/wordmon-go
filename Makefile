@@ -1,0 +1,16 @@
+fmt:
+	go fmt ./...
+
+vet:
+	go vet ./...
+
+lint:
+	golint ./...
+
+test:
+	go test -race -cover ./...
+
+build:
+	go build ./...
+
+all: fmt vet lint test build
