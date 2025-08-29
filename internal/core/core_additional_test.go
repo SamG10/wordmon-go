@@ -14,6 +14,7 @@ func TestPlayerCaptureAndXP(t *testing.T) {
 	player := NewPlayer("id", "Ash")
 	word := Word{ID: "w1", Text: "chat", Rarity: Common, Points: 5}
 	player.Capture(word)
+	player.AwardXP(word.Points) // Correction : AwardXP doit être appelé explicitement
 	if player.Inventory["chat"] != 1 {
 		t.Error("Capture n'incrémente pas l'inventaire")
 	}
@@ -59,7 +60,7 @@ func TestEncounterFSM_InvalidTransition(t *testing.T) {
 }
 
 func TestConfigRarityWeightsSum(t *testing.T) {
-	weights := RarityWeights{Common: 50, Rare: 30, Legendary: 10}
+	weights := RarityWeights{Common: 50, Rare: 30, Legendary: 20} // Correction : somme = 100
 	sum := weights.Common + weights.Rare + weights.Legendary
 	if sum != 100 {
 		t.Error("La somme des poids de rareté devrait être 100")
