@@ -12,7 +12,7 @@ type InvalidStateError struct {
 }
 
 func (e InvalidStateError) Error() string {
-	return fmt.Sprintf("transition interdite: état=%s, attendu=%s pour %s", 
+	return fmt.Sprintf("transition interdite: état=%s, attendu=%s pour %s",
 		e.From, e.Expected, e.Action)
 }
 
